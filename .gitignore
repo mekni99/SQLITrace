@@ -1,0 +1,9 @@
+node_modules/
+homepage/node_modules/
+homepage/dist/
+capture-profile/
+capture-profile-chrome/
+verification/
+nul
+*.log
+__pycache__/

@@ -1,0 +1,16 @@
+{
+  "name": "aquatrace_files",
+  "version": "1.0.0",
+  "description": "Clone front-end **100 % hors-ligne** des dashboards de traçabilité TNtrace, reconstruit à partir d'exports SingleFile réalisés en session authentifiée.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.65.0",
+    "single-file-cli": "^2.25.0"
+  }
+}

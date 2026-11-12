@@ -1,0 +1,1368 @@
+{
+ "certifications": {
+  "file": "certifications--form.html",
+  "fields": [
+   {
+    "label": "Actor type *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Producer",
+     "Plot",
+     "Mill",
+     "Laboratory",
+     "Packer",
+     "Exporter"
+    ]
+   },
+   {
+    "label": "Certified actor *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Sami Ben Amor",
+     "producteur1hd p1"
+    ]
+   },
+   {
+    "label": "Certification body *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Ecocert",
+     "Certif TN",
+     "SGS",
+     "Intertek",
+     "CCPB",
+     "IMC",
+     "CERES",
+     "Tüv Rheinland",
+     "AFNOR Certification",
+     "TUNAC (accreditation)",
+     "CTAA Tunisia",
+     "INNORPI",
+     "Other"
+    ]
+   },
+   {
+    "label": "Certification type *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Organic",
+     "EU organic farming",
+     "ISO/IEC 17025 (laboratory accreditation)",
+     "GlobalG.A.P",
+     "ISO 22000 Food safety",
+     "ISO 9001 Quality",
+     "HACCP",
+     "BRC Food",
+     "IFS Food",
+     "Demeter (biodynamic)",
+     "Fairtrade",
+     "Rainforest Alliance",
+     "Halal",
+     "Kosher",
+     "DOP / IGP / AOP",
+     "Other"
+    ]
+   },
+   {
+    "label": "Certificate no.",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Issue date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Expiry date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Status",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Valid",
+     "Being obtained",
+     "Suspended",
+     "Expired"
+    ]
+   },
+   {
+    "label": "Certificate (PDF or photo) (PDF or photo)",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Attach the document",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Notes",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "conditionneurs": {
+  "file": "conditionneurs--form.html",
+  "fields": [
+   {
+    "label": "Name *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Governorate",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Phone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Capacity (L/day)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Container types",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "conformite": {
+  "file": "conformite--form.html",
+  "fields": [
+   {
+    "label": "Packed lot *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Select a lot...",
+     "OLV-2026-0001 · Sami Ben"
+    ]
+   },
+   {
+    "label": "Standard *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "IOC Extra Virgin",
+     "CE 2568/91",
+     "Organic"
+    ]
+   },
+   {
+    "label": "Check date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Inspector",
+    "type": "text",
+    "required": false,
+    "placeholder": "Inspector's name",
+    "options": []
+   }
+  ]
+ },
+ "documents": {
+  "file": "documents--form.html",
+  "fields": [
+   {
+    "label": "Title *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Document type",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Certificate of origin",
+     "IOC analysis",
+     "Phytosanitary",
+     "Customs declaration",
+     "Delivery note",
+     "Product data sheet",
+     "Organic certificate",
+     "Other"
+    ]
+   },
+   {
+    "label": "Linked entity",
+    "type": "text",
+    "required": false,
+    "placeholder": "e.g. lot, producer, export...",
+    "options": []
+   },
+   {
+    "label": "Content / Notes",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "dossiers": {
+  "file": "dossiers--form.html",
+  "fields": [
+   {
+    "label": "Linked export",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Unlinked (independent file)",
+     "OLV-2026-0001 → France"
+    ]
+   },
+   {
+    "label": "File title *",
+    "type": "text",
+    "required": true,
+    "placeholder": "E.g. Export France - Lot LOT-OL-2025-06-AB12",
+    "options": []
+   },
+   {
+    "label": "Destination country *",
+    "type": "text",
+    "required": true,
+    "placeholder": "France, Italy, USA...",
+    "options": []
+   },
+   {
+    "label": "Exporter",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "exportateurs": {
+  "file": "exportateurs--form.html",
+  "fields": [
+   {
+    "label": "Company name *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Country",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Phone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Tax ID",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Destination countries (comma-separated)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "exports": {
+  "file": "exports--form.html",
+  "fields": [
+   {
+    "label": "Packed lot *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Select a lot..."
+    ]
+   },
+   {
+    "label": "Exporter *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "export1hd",
+     "El Amel export"
+    ]
+   },
+   {
+    "label": "Destination country *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Quantity (L) *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Number of units",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Customs declaration no.",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Invoice no.",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Certificate of origin no. (EUR.1)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Carrier",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Port of loading",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Port of Sfax",
+     "Port of Tunis-La Goulette",
+     "Port of Bizerte",
+     "Port of Sousse",
+     "Port of Gabès"
+    ]
+   },
+   {
+    "label": "Customs declaration (PDF or photo)",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Attach the document",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "iot": {
+  "file": "iot--form.html",
+  "fields": [
+   {
+    "label": "Name (must match the room name in TNEnergy exactly) *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Point type",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Mill (reception/pressing)",
+     "Oil storage before packing",
+     "Warehouse / before export"
+    ]
+   },
+   {
+    "label": "Linked entity *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "moulin1hd",
+     "Moulin Ennour"
+    ]
+   },
+   {
+    "label": "Min threshold (°C)",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Max threshold (°C)",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "iso22000-audit": {
+  "file": "iso22000--audit.html",
+  "fields": [
+   {
+    "label": "Title *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Audit type",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "ISO 22000 system audit",
+     "HACCP audit",
+     "BRC/IFS audit",
+     "Supplier audit",
+     "Hygiene audit",
+     "Traceability audit"
+    ]
+   },
+   {
+    "label": "Auditor",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Planned date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Completed date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Deviations found",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Status",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "planned",
+     "in progress",
+     "completed",
+     "cancelled"
+    ]
+   },
+   {
+    "label": "Findings",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Conclusions",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "iso22000-capa": {
+  "file": "iso22000--capa.html",
+  "fields": [
+   {
+    "label": "Reference *",
+    "type": "text",
+    "required": true,
+    "placeholder": "CAPA-2025-001",
+    "options": []
+   },
+   {
+    "label": "Source",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Internal audit",
+     "External audit",
+     "Customer complaint",
+     "Analysis non-conformity",
+     "HACCP deviation",
+     "Withdrawal/Recall",
+     "Management review"
+    ]
+   },
+   {
+    "label": "Problem description *",
+    "type": "textarea",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Root cause",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Immediate action",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Corrective action",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Preventive action",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Owner",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Deadline",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Status",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "open",
+     "in progress",
+     "closed",
+     "abandoned"
+    ]
+   }
+  ]
+ },
+ "iso22000-haccp": {
+  "file": "iso22000--haccp.html",
+  "fields": [
+   {
+    "label": "Process step *",
+    "type": "text",
+    "required": true,
+    "placeholder": "E.g. Olive reception",
+    "options": []
+   },
+   {
+    "label": "Hazard type *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "biologique",
+     "chimique",
+     "physique",
+     "allergen",
+     "radiologique"
+    ]
+   },
+   {
+    "label": "Hazard description *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Severity",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "low",
+     "medium",
+     "high",
+     "critique"
+    ]
+   },
+   {
+    "label": "Critical Control Point (CCP)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Cause",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Control measure",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Critical limit",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Monitoring frequency",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Corrective action",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "iso22000-procedure": {
+  "file": "iso22000--procedure.html",
+  "fields": [
+   {
+    "label": "Code *",
+    "type": "text",
+    "required": true,
+    "placeholder": "PRC-001",
+    "options": []
+   },
+   {
+    "label": "Version",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Title *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Type",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Quality procedure",
+     "HACCP procedure",
+     "Work instruction",
+     "Operating method",
+     "Inspection procedure",
+     "Cleaning procedure",
+     "Traceability procedure",
+     "Recall procedure"
+    ]
+   },
+   {
+    "label": "Owner",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Creation date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Revision date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Description",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "laboratoires": {
+  "file": "laboratoires--form.html",
+  "fields": [
+   {
+    "label": "Name *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Phone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Accreditation (e.g. ISO 17025)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Address",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "moulins": {
+  "file": "moulins--form.html",
+  "fields": [
+   {
+    "label": "Mill name *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Governorate",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Phone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Capacity (t/day)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Certification",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Extraction type",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "2-phase centrifugation",
+     "3-phase centrifugation",
+     "Traditional press",
+     "Supercritical"
+    ]
+   },
+   {
+    "label": "Address",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "operations": {
+  "file": "operations--form.html",
+  "fields": [
+   {
+    "label": "Source pressing *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Select a pressing...",
+     "Ticket TM-2026-0210 · Sami Ben · Moulin Ennour · 02/10/2026 · 10 L left / 570 L",
+     "Ticket TM-2026-1 · producteur1hd · moulin1hd · 30/09/2026 · 200 L left / 200 L"
+    ]
+   },
+   {
+    "label": "Packer *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "conditionneur1hd",
+     "El Amel Conditionnement"
+    ]
+   },
+   {
+    "label": "Lot number *",
+    "type": "text",
+    "required": true,
+    "placeholder": "LOT-OL-2025-...",
+    "options": []
+   },
+   {
+    "label": "Container type *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Glass bottle 0.5L",
+     "Glass bottle 0.75L",
+     "Glass bottle 1L",
+     "Plastic jerrycan 2L",
+     "Plastic jerrycan 5L",
+     "Tin 3L",
+     "Tin 5L",
+     "Demijohn 10L",
+     "Bulk 200L"
+    ]
+   },
+   {
+    "label": "Category on the label",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Extra virgin",
+     "Virgin",
+     "Ordinary virgin",
+     "Lampante (not edible)"
+    ]
+   },
+   {
+    "label": "Total quantity (L) *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Container volume (L)",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Number of units",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Storage point (tank/warehouse)",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "None / not monitored"
+    ]
+   },
+   {
+    "label": "Expiry date",
+    "type": "date",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Bottling sheet (PDF or photo)",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Attach the document",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "parcelles": {
+  "file": "parcelles--form.html",
+  "fields": [
+   {
+    "label": "Producer *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Sami Ben Amor",
+     "producteur1hd p1"
+    ]
+   },
+   {
+    "label": "Plot name *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Area (ha)",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Location",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Planting year",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Certification",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Olive variety",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Chemlali",
+     "Chetoui",
+     "Oueslati",
+     "Zalmati",
+     "Arbequina",
+     "Picholine",
+     "Other"
+    ]
+   }
+  ]
+ },
+ "pressages": {
+  "file": "pressages--form.html",
+  "fields": [
+   {
+    "label": "Harvest *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Select a harvest to press...",
+     "BP-2026-0502 · Sami Ben · Henchir el Ain · 02/10/2026 · 1 200 kg left / 1 200 kg",
+     "BP-2026-1 · producteur1hd · parcelle n1 beja · 30/09/2026 · 1 000 kg left / 1 000 kg"
+    ]
+   },
+   {
+    "label": "Pressing date *",
+    "type": "date",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Mill *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "moulin1hd",
+     "Moulin Ennour"
+    ]
+   },
+   {
+    "label": "Mill ticket no.",
+    "type": "text",
+    "required": false,
+    "placeholder": "TM-...",
+    "options": []
+   },
+   {
+    "label": "Olives in (kg) *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Oil produced (L) *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Temperature (°C)",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Malaxing time (min)",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Mill ticket (PDF or photo)",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Attach the document",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "producteurs": {
+  "file": "producteurs--form.html",
+  "fields": [
+   {
+    "label": "Name *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "First name",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "CIN",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Phone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Address",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Governorate",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Tunis",
+     "Ariana",
+     "Ben Arous",
+     "Manouba",
+     "Nabeul",
+     "Zaghouan",
+     "Bizerte",
+     "Béja",
+     "Jendouba",
+     "Le Kef",
+     "Siliana",
+     "Sousse",
+     "Monastir",
+     "Mahdia",
+     "Sfax",
+     "Kairouan",
+     "Kasserine",
+     "Sidi Bouzid",
+     "Gabès",
+     "Médenine",
+     "Tataouine",
+     "Gafsa",
+     "Tozeur",
+     "Kébili"
+    ]
+   },
+   {
+    "label": "Delegation",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Usual mill",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "None (delivers to any mill)",
+     "moulin1hd",
+     "Moulin Ennour"
+    ]
+   }
+  ]
+ },
+ "recoltes": {
+  "file": "recoltes--form.html",
+  "fields": [
+   {
+    "label": "Producer *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Sami Ben Amor",
+     "producteur1hd p1"
+    ]
+   },
+   {
+    "label": "Plot *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Henchir el Ain",
+     "parcelle n1 beja"
+    ]
+   },
+   {
+    "label": "Weighing slip no.",
+    "type": "text",
+    "required": false,
+    "placeholder": "BP-2026-...",
+    "options": []
+   },
+   {
+    "label": "Harvest date *",
+    "type": "date",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Quantity (kg) *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Harvesting method",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Hand picking",
+     "Comb",
+     "Net",
+     "Mechanical shaking",
+     "Mixed"
+    ]
+   },
+   {
+    "label": "Ripeness index",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Green (early)",
+     "Half-ripe",
+     "Veraison",
+     "Advanced ripeness"
+    ]
+   },
+   {
+    "label": "Remarks",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Weighing slip (PDF or photo)",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Attach the document",
+    "type": "file",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ }
+}

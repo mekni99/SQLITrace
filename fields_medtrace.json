@@ -1,0 +1,504 @@
+{
+ "distributions": {
+  "file": "distributions--form.html",
+  "fields": [
+   {
+    "label": "Lot *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Amoxicilline 500mg — Lot lot-2026-001 (100 dispo)"
+    ]
+   },
+   {
+    "label": "Pharmacie *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Pharmacie Centrale Tunis — Tunis",
+     "Pharmacie El Amal — Sfax",
+     "Pharmacie Ibn Sina — Sousse"
+    ]
+   },
+   {
+    "label": "Quantité *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Notes",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "hopitaux": {
+  "file": "hopitaux--form.html",
+  "fields": [
+   {
+    "label": "Nom de l'établissement *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Type",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "Hôpital public",
+     "Clinique privée",
+     "Polyclinique",
+     "Centre de santé",
+     "Hôpital universitaire"
+    ]
+   },
+   {
+    "label": "Ville",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Téléphone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "email",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "N° autorisation",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Adresse",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "inspections": {
+  "file": "inspections--form.html",
+  "fields": [
+   {
+    "label": "Date d'inspection *",
+    "type": "date",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Type *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "ANMPS",
+     "OMS / BPF",
+     "FMD",
+     "Interne",
+     "Douane",
+     "Autre"
+    ]
+   },
+   {
+    "label": "Organisme inspecteur",
+    "type": "text",
+    "required": false,
+    "placeholder": "ANMPS, Inspecteur OMS...",
+    "options": []
+   },
+   {
+    "label": "Statut initial",
+    "type": "select",
+    "required": false,
+    "placeholder": "",
+    "options": [
+     "En cours",
+     "Conforme",
+     "Non conforme"
+    ]
+   },
+   {
+    "label": "Lots inspectés (numéros, séparés par virgule)",
+    "type": "text",
+    "required": false,
+    "placeholder": "LOT-2024-001, LOT-2024-002...",
+    "options": []
+   },
+   {
+    "label": "Observations",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Recommandations",
+    "type": "textarea",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "laboratoires": {
+  "file": "laboratoires--form.html",
+  "fields": [
+   {
+    "label": "Nom du laboratoire *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Pays",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Licence de fabrication",
+    "type": "text",
+    "required": false,
+    "placeholder": "LF-TN-...",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "email",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Téléphone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Adresse",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Site web",
+    "type": "text",
+    "required": false,
+    "placeholder": "https://...",
+    "options": []
+   }
+  ]
+ },
+ "lots": {
+  "file": "lots--form.html",
+  "fields": [
+   {
+    "label": "Médicament *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Amoxicilline 500mg — 500mg",
+     "Morfine 10mg — 10mg/ml",
+     "Paracétamol 1g — 1000mg"
+    ]
+   },
+   {
+    "label": "Numéro de lot *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Date fabrication *",
+    "type": "date",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Date péremption *",
+    "type": "date",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Quantité produite *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Température stockage",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "medicaments": {
+  "file": "medicaments--form.html",
+  "fields": [
+   {
+    "label": "Nom commercial *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Nom générique",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "DCI *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Forme",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Dosage",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Fabricant",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Pays origine",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "N° AMM",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Classe thérapeutique",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Stupéfiant",
+    "type": "checkbox",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Prescription obligatoire",
+    "type": "checkbox",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "pharmacies": {
+  "file": "pharmacies--form.html",
+  "fields": [
+   {
+    "label": "Nom *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Adresse",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Ville *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Téléphone",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "N° Autorisation",
+    "type": "text",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "stupefiants": {
+  "file": "stupefiants--form.html",
+  "fields": [
+   {
+    "label": "Pharmacie *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Pharmacie Centrale Tunis",
+     "Pharmacie El Amal",
+     "Pharmacie Ibn Sina"
+    ]
+   },
+   {
+    "label": "Référence ordonnance *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Votre mot de passe (1ère signature) *",
+    "type": "password",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "temperature": {
+  "file": "temperature--form.html",
+  "fields": [
+   {
+    "label": "Lot concerné *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Amoxicilline 500mg — Lot lot-2026-001"
+    ]
+   },
+   {
+    "label": "Température (°C) *",
+    "type": "number",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Humidité (%)",
+    "type": "number",
+    "required": false,
+    "placeholder": "",
+    "options": []
+   }
+  ]
+ },
+ "utilisateurs": {
+  "file": "utilisateurs--form.html",
+  "fields": [
+   {
+    "label": "Nom *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Prénom *",
+    "type": "text",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Email *",
+    "type": "email",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Mot de passe *",
+    "type": "password",
+    "required": true,
+    "placeholder": "",
+    "options": []
+   },
+   {
+    "label": "Type d'accès *",
+    "type": "select",
+    "required": true,
+    "placeholder": "",
+    "options": [
+     "Administrateur",
+     "Laboratoire",
+     "Pharmacie",
+     "Inspecteur",
+     "Hôpital"
+    ]
+   }
+  ]
+ }
+}
