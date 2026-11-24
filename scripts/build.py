@@ -122,14 +122,14 @@ BTN_ROUTES = {
         "exports.html": [("New export", "exports--form.html")],
         "certifications.html": [("New certification", "certifications--form.html")],
         "conformite.html": [("Manual check", "conformite--form.html")],
-        "dossiers.html": [("Manual file", "dossiers--form.html")],
+        "dossiers.html": [("Manual file", "dossiers--form.html"), ("Attach", "documents--form.html")],
         "iot.html": [("New point", "iot--form.html")],
         "documents.html": [
             ("New document", "documents--form.html"),
             ("Sample documents", "documents--samples.html"),
         ],
         "documents--samples.html": [("Company documents", "documents.html")],
-        "utilisateurs.html": [("New user", "404-local.html#new-user")],
+        "utilisateurs.html": [("New user", "utilisateurs--form.html"), ("Edit", "utilisateurs--form.html")],
         # Onglets ISO 22000 (mêmes sur la page et ses 4 variantes)
         "iso22000.html": [
             ("Procedures", "iso22000--procedure.html"),
@@ -288,6 +288,19 @@ NAV_JS_TEMPLATE = """// nav.js — navigation locale du clone statique (aucun ac
     plusOpen = div;
   }
 
+  // Toast démo : feedback quand un bouton n'a pas de route (clone statique).
+  function demoToast() {
+    var t = document.createElement("div");
+    t.textContent = "Action non disponible dans la démo statique";
+    t.setAttribute("style", "position:fixed;bottom:70px;left:50%;transform:translateX(-50%);" +
+      "z-index:99999;background:#1e293b;color:#fff;font:500 13px/1 Inter,system-ui,sans-serif;" +
+      "padding:10px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(15,23,42,.35);" +
+      "opacity:.96;transition:opacity .3s;pointer-events:none;");
+    document.body.appendChild(t);
+    setTimeout(function(){ t.style.opacity = "0"; }, 1600);
+    setTimeout(function(){ t.remove(); }, 2000);
+  }
+
   document.addEventListener("click", function (e) {
     var btn = e.target.closest("button, [role=button], .cursor-pointer, a");
     if (!btn) {
@@ -320,7 +333,7 @@ NAV_JS_TEMPLATE = """// nav.js — navigation locale du clone statique (aucun ac
     }
     // Sur une page variante (formulaire inline, carte détail) : boutons de
     // clôture, « Retour… » ou flèche ← -> retour ; les autres passent par les règles.
-    if (isVariant && (btn.querySelector("svg.lucide-arrow-left") ||
+    if (isVariant && (btn.querySelector("svg.lucide-arrow-left") || btn.querySelector("svg.lucide-x") ||
         (label && (/retour|back|←/i.test(label) || CLOSE_RE.test(label))))) {
       e.preventDefault();
       closeModal();
@@ -350,6 +363,10 @@ NAV_JS_TEMPLATE = """// nav.js — navigation locale du clone statique (aucun ac
     if (/^actualiser$/i.test(label)) {
       e.preventDefault();
       location.reload();
+    }
+    else if (btn.tagName === "BUTTON" && label &&
+             !/^(fr|en|ar|عربي|arabic|english|français)$/i.test(label)) {
+      demoToast();
     }
   });
 
