@@ -239,7 +239,7 @@ NAV_JS_TEMPLATE = """// nav.js — navigation locale du clone statique (aucun ac
 (function () {
   "use strict";
 
-  var PAGE = location.pathname.split("/").pop() || "index.html";
+  var PAGE = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   var ROUTES = __ROUTES__;
   var VARIANT_BASE = __VARIANT_BASE__;
   var PLUS_MENU = __PLUS_MENU__;
@@ -293,9 +293,9 @@ NAV_JS_TEMPLATE = """// nav.js — navigation locale du clone statique (aucun ac
   }
 
   // Toast démo : feedback quand un bouton n'a pas de route (clone statique).
-  function demoToast() {
+  function demoToast(lbl) {
     var t = document.createElement("div");
-    t.textContent = "Action non disponible dans la démo statique";
+    t.textContent = "Action non disponible : [" + lbl + "] sur " + PAGE;
     t.setAttribute("style", "position:fixed;bottom:70px;left:50%;transform:translateX(-50%);" +
       "z-index:99999;background:#1e293b;color:#fff;font:500 13px/1 Inter,system-ui,sans-serif;" +
       "padding:10px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(15,23,42,.35);" +
@@ -370,7 +370,7 @@ NAV_JS_TEMPLATE = """// nav.js — navigation locale du clone statique (aucun ac
     }
     else if (btn.tagName === "BUTTON" && label &&
              !/^(fr|en|ar|عربي|arabic|english|français)$/i.test(label)) {
-      demoToast();
+      demoToast(label);
     }
   });
 
