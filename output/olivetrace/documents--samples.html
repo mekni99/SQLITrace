@@ -121,7 +121,7 @@
       return;
     }
 
-    var rules = ROUTES[PAGE] || [];
+    var rules = ROUTES[PAGE] || ROUTES[VARIANT_BASE[PAGE]] || [];
     for (var i = 0; i < rules.length; i++) {
       var pat = rules[i][0], target = rules[i][1];
       var match;
