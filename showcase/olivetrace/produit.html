@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fiche produit — OliveTrace</title>
+<link rel="stylesheet" href="vitrine.css">
+</head>
+<body>
+<div id="vt-header"></div>
+
+<div class="wrap"><div class="pd" id="pd"></div></div>
+
+<section style="background:var(--cream);padding:90px 0"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">À découvrir aussi</span><h2>D’autres terroirs tracés.</h2></div><a class="btn btn-line btn-sm" href="boutique.html#huiles">Toute la boutique →</a></div>
+  <div class="grid" id="more" style="grid-template-columns:repeat(3,1fr)"></div>
+</div></section>
+
+<div id="vt-footer"></div>
+
+<script src="vitrine-data.js"></script>
+<script src="vitrine.js"></script>
+<script>
+(function () {
+  VT.boot("shop");
+  var l = VT.lot(VT.param("lot") || "OLV-2026-0001"), q = 1, s = l.steps;
+  document.title = l.name + " — " + l.category + " " + l.volume + " · OliveTrace";
+  var ICON = ["🌳", "🧺", "🏭", "🧪", "🍾", "🚢"];
+  var facts = [["Variété", l.variety], ["Région", l.region], ["Format", l.volume], ["Récolte", s[1].date], ["Moulin", s[2].place.split("·")[0]],
+               ["Acidité", String(s[3].data["Acidité libre"]).replace(".", ",") + " %"], ["Rendement", s[2].data.Rendement], ["DDM", s[4].data.DDM], ["Lot", l.id]];
+  document.getElementById("pd").innerHTML =
+    '<div class="pd-vis" style="' + VT.tint(l) + '">' + VT.badges(l) + VT.bottle(l) + "</div>" +
+    "<div>" +
+    '<div class="crumbs"><a href="boutique.html">Boutique</a> / <a href="boutique.html#huiles">Huiles</a> / ' + VT.esc(l.name) + "</div>" +
+    '<span class="eyebrow">' + l.region + " · " + l.variety + "</span><h1>" + VT.esc(l.name) + '</h1><p class="sub">' + VT.esc(l.subtitle) + " · " + VT.esc(l.format) + "</p>" +
+    '<div class="price">' + VT.money(l.price) + "</div>" +
+    '<p style="font-size:13px;color:var(--muted)">TVA incluse · Livraison offerte dès 150 TND · Expédition sous 24 h</p>' +
+    '<div class="buy"><div class="qty"><button id="m">−</button><span id="q">1</span><button id="p">+</button></div><button class="btn btn-ink" id="add">Ajouter au panier</button></div>' +
+    '<div class="facts">' + facts.map(function (f) { return "<div><span>" + f[0] + "</span><b>" + VT.esc(f[1]) + "</b></div>"; }).join("") + "</div>" +
+    '<div class="block"><h4>Notes de dégustation</h4><p class="notes">« ' + VT.esc(l.notes) + " »</p></div>" +
+    '<div class="block"><h4>Profil sensoriel</h4><div class="taste">' + [["Fruité", l.tasting.fruite], ["Amertume", l.tasting.amertume], ["Piquant", l.tasting.piquant]].map(function (t) {
+      return "<div><span>" + t[0] + '</span><i style="--v:' + t[1] * 10 + '%"></i><b>' + t[1] + "/10</b></div>";
+    }).join("") + "</div></div>" +
+    '<div class="block"><h4>Accords</h4><div class="chips">' + l.pairings.map(function (p) { return "<span>" + VT.esc(p) + "</span>"; }).join("") + "</div></div>" +
+    '<div class="qrcard"><div class="qr">' + l.qr + '</div><div style="position:relative;z-index:1"><h5>Le QR de cette bouteille</h5><p>Unique, signé et scellé. Scannez-le à réception pour retrouver son voyage et vérifier son authenticité.</p><code>' + l.url + '</code><a class="btn btn-gold btn-sm" href="verifier.html?lot=' + l.id + '">Vérifier maintenant →</a></div></div>' +
+    '<div class="block"><h4>Son voyage en 6 étapes scellées</h4><a class="mini-journey" href="verifier.html?lot=' + l.id + '">' + s.map(function (x, i) { return "<div><i>" + ICON[i] + "</i>" + VT.esc(x.title) + "</div>"; }).join("") + "</a></div>" +
+    "</div>";
+  var qe = document.getElementById("q");
+  document.getElementById("m").onclick = function () { q = Math.max(1, q - 1); qe.textContent = q; };
+  document.getElementById("p").onclick = function () { q++; qe.textContent = q; };
+  document.getElementById("add").onclick = function () { VT.add(l.id, q); VT.toast(q + " × " + VT.esc(l.name) + " ajouté" + (q > 1 ? "s" : "") + " au panier", "✓"); VT.open(); };
+
+  document.getElementById("more").innerHTML = VT.lots.filter(function (x) { return x.id !== l.id; }).map(function (x) {
+    return '<article class="card"><a class="card-vis" href="produit.html?lot=' + x.id + '" style="' + VT.tint(x) + '">' + VT.badges(x) + VT.bottle(x) + '<span class="card-qr">' + x.qr + "</span></a>" +
+      '<div class="card-body"><span class="reg">' + x.region + " · " + x.variety + '</span><a href="produit.html?lot=' + x.id + '"><h3>' + VT.esc(x.name) + "</h3></a><p>" + VT.esc(x.format) + "</p>" +
+      '<div class="card-foot"><span class="price">' + VT.money(x.price) + '</span><a class="add" href="produit.html?lot=' + x.id + '">→</a></div></div></article>';
+  }).join("");
+})();
+</script>
+</body>
+</html>

@@ -632,8 +632,16 @@ def make_nav_js(product: str, variant_files: set[str]) -> str:
     )
 
 
-def inject_nav(html: str, nav_js: str) -> str:
+OLIVE_EXTRA_JS = ""
+_extra_path = Path(__file__).resolve().parent / "olive_extra.js"
+if _extra_path.is_file():
+    OLIVE_EXTRA_JS = _extra_path.read_text(encoding="utf-8")
+
+
+def inject_nav(html: str, nav_js: str, extra: str = "") -> str:
     tag = "<script>\n" + nav_js + "\n</script>"
+    if extra:
+        tag += "\n<script>\n" + extra + "\n</script>"
     return html.replace("</body>", tag + "</body>", 1) if "</body>" in html else html + tag
 
 
@@ -691,7 +699,7 @@ def build_product(product: str, src_dir: Path) -> dict:
         html = rewrite_links(html, origin, route_map, nf, ROUTE_STRIP.get(product, ""))
         if data_map:
             html = apply_data_map(html, data_map)
-        html = inject_nav(html, nav_js)
+        html = inject_nav(html, nav_js, OLIVE_EXTRA_JS if product == "olivetrace" else "")
         (out_dir / route_map[route]).write_text(html, encoding="utf-8")
         print(f"   OK  {route:42s} -> {product}/{route_map[route]}")
 
@@ -701,7 +709,7 @@ def build_product(product: str, src_dir: Path) -> dict:
         html = rewrite_links(html, origin, route_map, nf, ROUTE_STRIP.get(product, ""))
         if data_map:
             html = apply_data_map(html, data_map)
-        html = inject_nav(html, nav_js)
+        html = inject_nav(html, nav_js, OLIVE_EXTRA_JS if product == "olivetrace" else "")
         (out_dir / f.name).write_text(html, encoding="utf-8")
         print(f"   OK  {'[variante]':42s} -> {product}/{f.name}")
 
@@ -711,7 +719,7 @@ def build_product(product: str, src_dir: Path) -> dict:
     nf_html = rewrite_links(nf_html, origin, route_map, nf, ROUTE_STRIP.get(product, ""))
     if data_map:
         nf_html = apply_data_map(nf_html, data_map)
-    nf_html = inject_nav(nf_html, nav_js)
+    nf_html = inject_nav(nf_html, nav_js, OLIVE_EXTRA_JS if product == "olivetrace" else "")
     (out_dir / nf).write_text(nf_html, encoding="utf-8")
 
     return {
@@ -747,6 +755,8 @@ PRODUCTS_META = {
         "name": "OliveTrace", "icon": "🫒", "tag": "Huile d'olive",
         "color": "#10b981", "accent": "#065f46", "textDark": "#d1fae5",
         "modules": [
+            ("olivetrace/boutique.html", "🛍️ Boutique Consommateur", "Vitrine B2C — chaque bouteille vendue avec son histoire"),
+            ("olivetrace/verifier.html", "📱 Vérification QR", "Page publique du scan — voyage du lot & preuve blockchain"),
             ("olivetrace/index.html", "📊 Tableau de Bord Millésime", "Vue temps réel parcelles, moulins & exports"),
             ("olivetrace/parcelles.html", "🌳 Parcelles Oléicoles", "Géolocalisation SI Oli, densité arbres & rendement"),
             ("olivetrace/recoltes.html", "🧺 Récoltes & Cueillette", "Pesées journalières, mode manuel/effleurage"),
@@ -931,6 +941,19 @@ def main() -> int:
             manifest["home"] = True
             print("=== home ===")
             print("   OK  /tntrace.tn -> tntrace-landing.html (landing officielle)")
+
+    # Vitrines consommateur (showcase/<produit>/ -> output/<produit>/, copié tel quel)
+    showcase_dir = ROOT / "showcase"
+    if showcase_dir.is_dir():
+        for p in sorted(showcase_dir.iterdir()):
+            if not p.is_dir():
+                continue
+            tgt = OUT_DIR / p.name
+            tgt.mkdir(parents=True, exist_ok=True)
+            for f in p.iterdir():
+                if f.is_file():
+                    shutil.copy2(f, tgt / f.name)
+            print(f"=== showcase ===\n   OK  {p.name} : vitrine copiée -> output/{p.name}/")
 
     missing = [p for d, p in KNOWN_PRODUCTS.items() if p not in manifest["products"]]
 

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vérifier une bouteille — OliveTrace</title>
+<link rel="stylesheet" href="vitrine.css">
+<style>
+.vf-hero{background:radial-gradient(1200px 500px at 85% -10%,rgba(200,162,74,.22),transparent 60%),linear-gradient(160deg,#0f1f14,#16301d 60%,#0f1f14);color:#fff;padding:56px 0 70px;position:relative;overflow:hidden}
+.vf-hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:50px;align-items:center}
+.seal{display:flex;align-items:center;gap:22px}
+.ring{width:104px;height:104px;flex-shrink:0;border-radius:50%;position:relative;display:grid;place-items:center}
+.ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:rgba(255,255,255,.1)}
+.ring .fg{stroke:var(--gold2);stroke-linecap:round;stroke-dasharray:302;stroke-dashoffset:302;transition:stroke-dashoffset .4s ease,stroke .4s}
+.ring b{font-size:38px;transition:.4s;transform:scale(.6);opacity:.4}
+.st-ok .ring .fg{stroke:#34c26f}
+.st-bad .ring .fg{stroke:#ef5b5b}
+.st-ok .ring b,.st-bad .ring b{transform:scale(1);opacity:1}
+.st-ok .ring{box-shadow:0 0 0 10px rgba(52,194,111,.12),0 0 60px rgba(52,194,111,.35)}
+.st-bad .ring{box-shadow:0 0 0 10px rgba(239,91,91,.14),0 0 60px rgba(239,91,91,.4)}
+.seal h1{font-family:var(--serif);font-weight:500;font-size:clamp(38px,4.6vw,60px);line-height:1}
+.seal p{opacity:.7;margin-top:8px;font-size:15px}
+.vf-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.vf-meta span{padding:9px 14px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);font-size:13px}
+.vf-meta b{color:var(--gold2);font-weight:600}
+.route{display:flex;align-items:center;gap:0;margin-top:34px;padding:18px 22px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.route div{flex:1;font-size:12px;opacity:.85;position:relative;text-align:center}
+.route div i{display:block;font-style:normal;font-size:20px;margin-bottom:4px}
+.route div:not(:last-child):after{content:"";position:absolute;top:13px;right:-18%;width:36%;height:1px;background:repeating-linear-gradient(90deg,var(--gold2) 0 4px,transparent 4px 8px)}
+.vf-vis{position:relative;justify-self:center;display:grid;place-items:center;width:320px;height:420px;border-radius:30px;background:radial-gradient(circle at 50% 75%,rgba(255,255,255,.9),transparent 55%),linear-gradient(160deg,var(--c1),var(--c2))}
+.vf-vis svg.bottle{height:350px;filter:drop-shadow(0 30px 26px rgba(0,0,0,.4))}
+.vf-vis .qr{position:absolute;right:-26px;bottom:34px;width:112px;height:112px;background:#fff;border-radius:16px;padding:9px;box-shadow:0 20px 40px -10px rgba(0,0,0,.5);transform:rotate(4deg)}
+.vf-vis .badges{top:16px;left:16px}
+
+.demo{position:sticky;top:72px;z-index:40;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 8px 20px -18px rgba(0,0,0,.4)}
+.demo .wrap{display:flex;align-items:center;gap:16px;height:58px;font-size:13px}
+.demo b{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.demo select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);font:inherit;font-size:13px;background:var(--paper)}
+.sw{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;margin-left:auto}
+.sw i{width:42px;height:24px;border-radius:99px;background:#d9d6cc;position:relative;transition:.25s}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.sw.on i{background:var(--bad)}
+.sw.on i:after{left:21px}
+
+.scan{display:flex;gap:14px;align-items:center;padding:16px 20px;border-radius:18px;margin:34px 0 0;font-size:14px;border:1px solid var(--line);background:#fff}
+.scan i{font-style:normal;font-size:20px}
+.scan.suspect{background:#fff7e8;border-color:#f3d79b;color:#7a5410}
+
+.vf-sec{padding:70px 0 0}
+.vf-sec h2{font-family:var(--serif);font-weight:500;font-size:44px;line-height:1.05;margin:8px 0 30px}
+.tl{position:relative;display:grid;gap:18px;padding-left:64px}
+.tl:before{content:"";position:absolute;left:25px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.tl .prog{position:absolute;left:25px;top:10px;width:2px;height:0;background:linear-gradient(var(--gold2),var(--olive));transition:height .45s ease}
+.stp{position:relative;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 24px;opacity:.45;transition:.45s}
+.stp.done{opacity:1}
+.stp .dot{position:absolute;left:-64px;top:18px;width:52px;height:52px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:21px;transition:.4s}
+.stp.done.ok .dot{border-color:#9fd8b4;box-shadow:0 0 0 6px rgba(31,157,85,.1)}
+.stp.done.bad{border-color:#f2b3b3;background:#fffafa}
+.stp.done.bad .dot{border-color:#f2b3b3;box-shadow:0 0 0 6px rgba(214,69,69,.12)}
+.stp-h{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.stp-h h3{font-family:var(--serif);font-size:26px;font-weight:600}
+.stp-h span{font-size:13px;color:var(--muted)}
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px 22px;margin-top:14px}
+.kv div span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kv div b{font-size:14.5px;font-weight:600}
+.kv div b.tam{color:var(--bad);text-decoration:underline wavy}
+.hash{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:12px;color:var(--muted)}
+.hash code{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:var(--ink);background:var(--cream);padding:4px 8px;border-radius:7px}
+.hash .st{margin-left:auto;font-weight:700;font-size:12px}
+.stp.ok .hash .st{color:var(--ok)}
+.stp.bad .hash .st{color:var(--bad)}
+
+.lab{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:26px}
+.cat{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.cat:after{content:"";position:absolute;right:-80px;bottom:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(232,205,140,.28),transparent 70%)}
+.cat .big{font-family:var(--serif);font-size:48px;line-height:1;color:var(--gold2);margin:12px 0}
+.cat p{font-size:13.5px;opacity:.75}
+.gauge{margin-bottom:18px}
+.gauge:last-child{margin-bottom:0}
+.gauge .gl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:7px}
+.gauge .gl b{font-weight:700}
+.gauge .gl small{color:var(--muted)}
+.gauge i{display:block;height:10px;border-radius:9px;background:#eeeadf;position:relative;overflow:hidden}
+.gauge i u{position:absolute;inset:0;width:var(--v);border-radius:9px;background:linear-gradient(90deg,#9ccf6b,var(--ok));transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.gauge.over i u{background:linear-gradient(90deg,#f0a35a,var(--bad))}
+
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pv .av{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:24px;color:var(--gold2);background:linear-gradient(140deg,var(--forest2),var(--ink));margin-bottom:16px}
+.pv q{display:block;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;margin-bottom:16px}
+.cert{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.cert:first-of-type{border-top:0}
+.cert i{font-style:normal;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#e9f3df;flex-shrink:0}
+.cert b{display:block;font-size:14px}
+.cert span{font-size:12px;color:var(--muted)}
+.co2 .big{font-family:var(--serif);font-size:56px;line-height:1}
+.co2 .big small{font-size:16px;font-family:var(--sans);color:var(--muted)}
+.stack{display:flex;height:12px;border-radius:9px;overflow:hidden;margin:18px 0 12px}
+.leg{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:12.5px;color:var(--muted)}
+.leg span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:7px;background:var(--c)}
+
+.proof{background:linear-gradient(160deg,#0f1f14,#1b3a24);color:#fff;border-radius:30px;padding:40px;margin-top:22px;position:relative;overflow:hidden}
+.proof h2{color:#fff;margin-bottom:10px}
+.proof>p{opacity:.7;max-width:640px}
+.chain{display:flex;gap:10px;margin:30px 0;flex-wrap:wrap}
+.chain div{flex:1;min-width:110px;padding:14px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:12px;position:relative;transition:.4s}
+.chain div b{display:block;font-size:13px;margin-bottom:6px}
+.chain div code{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;color:var(--gold2);opacity:.85}
+.chain div.ok{border-color:rgba(52,194,111,.5)}
+.chain div.bad{border-color:rgba(239,91,91,.7);background:rgba(239,91,91,.1)}
+.chain div:not(:last-child):after{content:"→";position:absolute;right:-10px;top:50%;transform:translate(50%,-50%);opacity:.4;font-size:12px}
+.sealbox{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:22px;border-radius:20px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08)}
+.sealbox code{font-family:ui-monospace,Consolas,monospace;font-size:13px;word-break:break-all;color:var(--gold2)}
+.sealbox small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:8px}
+.btc{display:flex;gap:26px;flex-wrap:wrap;margin-top:20px;font-size:13px;opacity:.85}
+.btc b{color:var(--gold2)}
+.cmp{margin-top:12px;font-size:12px;font-family:ui-monospace,Consolas,monospace;color:var(--bad);display:none}
+.stp.bad .cmp{display:block}
+.end-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:70px 0 100px}
+@media (max-width:1000px){.vf-hero .wrap,.lab,.three{grid-template-columns:1fr}.vf-vis{margin-top:20px}.sealbox{grid-template-columns:1fr}}
+@media (max-width:600px){.tl{padding-left:0}.tl:before,.tl .prog,.stp .dot{display:none}.demo .wrap{flex-wrap:wrap;height:auto;padding:10px 18px}.route div{font-size:10px}}
+</style>
+</head>
+<body>
+<div id="vt-header"></div>
+
+<div class="demo"><div class="wrap">
+  <b>Mode démo</b>
+  <select id="pick"></select>
+  <label class="sw" id="tamper"><i></i><span>Simuler une falsification des données</span></label>
+</div></div>
+
+<section class="vf-hero" id="hero" style="padding-top:56px;padding-bottom:70px"><div class="wrap">
+  <div>
+    <span class="eyebrow">Vérification d’authenticité · GS1 Digital Link</span>
+    <div class="seal" style="margin-top:22px">
+      <div class="ring"><svg viewBox="0 0 104 104"><circle class="bg" cx="52" cy="52" r="48"/><circle class="fg" id="ringfg" cx="52" cy="52" r="48"/></svg><b id="ringic">⏳</b></div>
+      <div><h1 id="st-title">Vérification…</h1><p id="st-sub">Recalcul de la chaîne d’empreintes dans votre navigateur</p></div>
+    </div>
+    <div class="vf-meta" id="meta"></div>
+    <div class="route" id="route"></div>
+  </div>
+  <div class="vf-vis" id="vis"></div>
+</div></section>
+
+<div class="wrap">
+  <div class="scan" id="scan"></div>
+
+  <div class="vf-sec">
+    <span class="eyebrow">Le voyage de votre bouteille</span>
+    <h2>De la parcelle à votre table, <em class="serif">chaque étape est scellée.</em></h2>
+    <div class="tl" id="tl"><div class="prog" id="prog"></div></div>
+  </div>
+
+  <div class="vf-sec">
+    <span class="eyebrow">Qualité certifiée en laboratoire</span>
+    <h2>Les résultats d’analyse, <em class="serif">face aux limites COI.</em></h2>
+    <div class="lab" id="lab"></div>
+  </div>
+
+  <div class="vf-sec">
+    <span class="eyebrow">Les femmes et les hommes derrière cette huile</span>
+    <h2>Producteur, certifications <em class="serif">& empreinte carbone.</em></h2>
+    <div class="three" id="three"></div>
+  </div>
+
+  <div class="vf-sec">
+    <div class="proof" id="proof"></div>
+  </div>
+
+  <div class="end-cta" id="cta"></div>
+</div>
+
+<div id="vt-footer"></div>
+
+<script src="vitrine-data.js"></script>
+<script src="vitrine.js"></script>
+<script>
+(function () {
+  VT.boot("verify");
+  var ICON = { parcelle: "🌳", recolte: "🧺", trituration: "🏭", analyse: "🧪", conditionnement: "🍾", export: "🚢" };
+  var LIM = {
+    "Extra vierge": { "Acidité libre": [0.8, "%"], "Indice de peroxyde": [20, "meq O₂/kg"], "K232": [2.5, ""], "K270": [0.22, ""] },
+    "Vierge": { "Acidité libre": [2.0, "%"], "Indice de peroxyde": [20, "meq O₂/kg"], "K232": [2.6, ""], "K270": [0.25, ""] }
+  };
+  var lot, tampered = false, run = 0;
+
+  var pick = document.getElementById("pick");
+  pick.innerHTML = VT.lots.map(function (l) { return '<option value="' + l.id + '">' + l.id + " — " + VT.esc(l.name) + "</option>"; }).join("");
+  pick.onchange = function () { history.replaceState(null, "", "?lot=" + pick.value); load(pick.value); };
+  var tsw = document.getElementById("tamper");
+  tsw.onclick = function () { tampered = !tampered; tsw.classList.toggle("on", tampered); load(lot.id); };
+
+  function data(l) {
+    var steps = JSON.parse(JSON.stringify(l.steps));
+    if (tampered) steps[3].data["Acidité libre"] = 0.95;
+    return steps;
+  }
+  function short(h) { return h.slice(0, 10) + "…" + h.slice(-6); }
+  function fmt(v) { return typeof v === "number" ? String(v).replace(".", ",") : VT.esc(v); }
+
+  function load(id) {
+    lot = VT.lot(id); pick.value = lot.id; run++;
+    var steps = data(lot), an = steps[3].data;
+    document.title = lot.name + " · " + lot.id + " — Vérification OliveTrace";
+
+    document.getElementById("meta").innerHTML =
+      "<span>Lot <b>" + lot.id + "</b></span><span>Bouteille n° <b>" + lot.serial + "</b> / " + lot.bottles.toLocaleString("fr-FR") + "</span>" +
+      "<span><b>" + VT.esc(lot.name) + "</b> · " + lot.category + "</span><span>" + lot.variety + " · " + lot.region + "</span>";
+    var dest = lot.steps[5].data.Destination;
+    document.getElementById("route").innerHTML =
+      "<div><i>🌳</i>" + lot.region + "</div><div><i>🏭</i>" + lot.steps[2].place.split("·")[0] + "</div><div><i>🧪</i>Labo accrédité</div><div><i>🍾</i>Mise en bouteille</div><div><i>" + (dest === "Tunisie" ? "🏪" : "🚢") + "</i>" + dest + "</div>";
+    var vis = document.getElementById("vis");
+    vis.setAttribute("style", VT.tint(lot));
+    vis.innerHTML = VT.badges(lot) + VT.bottle(lot) + '<div class="qr" title="' + lot.url + '">' + lot.qr + "</div>";
+
+    var sc = document.getElementById("scan");
+    sc.className = "scan" + (lot.scans.status === "suspect" ? " suspect" : "");
+    sc.innerHTML = lot.scans.status === "suspect"
+      ? "<i>⚠️</i><div><b>Attention : ce QR a été scanné " + lot.scans.count + " fois dans 4 pays différents</b> (" + lot.scans.last + "). Un même code scanné en plusieurs lieux peut signaler une copie. Le producteur a été notifié.</div>"
+      : "<i>📍</i><div>Ce QR unique a été scanné <b>" + lot.scans.count + " fois</b> · dernier scan : <b>" + lot.scans.last + "</b>. Aucune anomalie détectée.</div>";
+
+    var tl = document.getElementById("tl");
+    tl.innerHTML = '<div class="prog" id="prog"></div>' + steps.map(function (s, i) {
+      var kv = Object.keys(s.data).map(function (k) {
+        var t = tampered && i === 3 && k === "Acidité libre";
+        return "<div><span>" + VT.esc(k) + "</span><b" + (t ? ' class="tam"' : "") + ">" + fmt(s.data[k]) + (typeof s.data[k] === "number" && /Acidité|oléique/.test(k) ? " %" : "") + "</b></div>";
+      }).join("");
+      return '<div class="stp" id="s' + i + '"><div class="dot">' + ICON[s.k] + "</div>" +
+        '<div class="stp-h"><h3>' + VT.esc(s.title) + "</h3><span>" + s.date + " · " + VT.esc(s.place) + "</span></div>" +
+        '<div class="kv">' + kv + "</div>" +
+        '<div class="hash">Empreinte <code>' + short(lot.steps[i].hash) + '</code> ← <code>' + short(lot.steps[i].prev) + '</code><span class="st">En attente…</span></div>' +
+        '<div class="cmp" id="c' + i + '"></div></div>';
+    }).join("");
+
+    var lim = LIM[lot.category];
+    document.getElementById("lab").innerHTML =
+      '<div class="panel cat"><span class="eyebrow">Catégorie officielle</span><div class="big">' + lot.category + "</div>" +
+      "<p>Classement selon la norme COI/T.15/NC n°3 et le règlement CE 2568/91, à partir de 17 paramètres physico-chimiques et de l’analyse sensorielle.</p>" +
+      '<p style="margin-top:18px;opacity:1"><b>' + VT.esc(steps[3].place) + "</b><br><span style=\"opacity:.65\">Analyse du " + steps[3].date + " · Laboratoire accrédité ISO/IEC 17025</span></p></div>" +
+      '<div class="panel">' + Object.keys(lim).map(function (k) {
+        var v = an[k], m = lim[k][0], over = v > m, p = Math.min(100, (v / m) * 100);
+        return '<div class="gauge' + (over ? " over" : "") + '"><div class="gl"><span>' + k + "</span><span><b>" + fmt(v) + " " + lim[k][1] + "</b> <small>/ max " + fmt(m) + "</small></span></div><i><u style=\"--v:" + p + '%"></u></i></div>';
+      }).join("") +
+      '<div class="gauge"><div class="gl"><span>Acide oléique (C18:1)</span><span><b>' + fmt(an["Acide oléique"]) + ' %</b> <small>/ plage 55 – 83</small></span></div><i><u style="--v:' + ((an["Acide oléique"] - 55) / 28 * 100) + '%"></u></i></div></div>';
+
+    var col = ["#5b7d2e", "#c8a24a", "#84a94b", "#1b3a24"], split = lot.carbon.split, ks = Object.keys(split);
+    document.getElementById("three").innerHTML =
+      '<div class="panel pv"><div class="av">' + lot.producer.initials + "</div><q>" + VT.esc(lot.producer.quote) + "</q><b>" + VT.esc(lot.producer.name) + '</b><br><span style="font-size:13px;color:var(--muted)">Oléiculteur depuis ' + lot.producer.since + " · " + lot.region + "</span></div>" +
+      '<div class="panel"><h4 style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Certifications vérifiées</h4>' +
+      lot.certs.map(function (c) { return '<div class="cert"><i>🏅</i><div><b>' + VT.esc(c[0]) + "</b><span>" + VT.esc(c[1]) + "</span></div></div>"; }).join("") + "</div>" +
+      '<div class="panel co2"><h4 style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Empreinte carbone</h4>' +
+      '<div class="big">' + fmt(lot.carbon.per_bottle) + " <small>kg CO₂e / " + (lot.volume === "5 L" ? "bidon" : "bouteille") + "</small></div>" +
+      '<div class="stack">' + ks.map(function (k, i) { return '<i style="width:' + split[k] + "%;background:" + col[i] + '"></i>'; }).join("") + "</div>" +
+      '<div class="leg">' + ks.map(function (k, i) { return '<span style="--c:' + col[i] + '">' + k + " " + split[k] + " %</span>"; }).join("") + "</div>" +
+      '<p style="font-size:11.5px;color:var(--muted);margin-top:14px">Lot complet : ' + lot.carbon.total + " kg CO₂e · méthode ISO 14067 simplifiée</p></div>";
+
+    document.getElementById("proof").innerHTML =
+      '<span class="eyebrow">Preuve cryptographique</span><h2 class="serif" style="font-size:42px;font-weight:500">Ne nous croyez pas sur parole. <em>Vérifiez.</em></h2>' +
+      "<p>Chaque étape produit une empreinte SHA-256 qui inclut celle de l’étape précédente. Votre navigateur vient de tout recalculer : si une seule donnée avait été modifiée, la chaîne serait rompue.</p>" +
+      '<div class="chain" id="chain">' + steps.map(function (s, i) { return '<div id="k' + i + '"><b>' + ICON[s.k] + " " + VT.esc(s.title) + "</b><code>" + lot.steps[i].hash.slice(0, 12) + "</code></div>"; }).join("") + "</div>" +
+      '<div class="sealbox"><div><small>Sceau du lot · ancré sur Bitcoin via OpenTimestamps</small><code>' + lot.seal + '</code></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-gold btn-sm" id="again">↻ Revérifier</button><button class="btn btn-ghost btn-sm" id="ots">Preuve .ots</button></div></div>' +
+      '<div class="btc"><span>Bloc OliveTrace <b>#' + lot.anchor.block + "</b></span><span>Bloc Bitcoin <b>#" + lot.anchor.btc.toLocaleString("fr-FR") + "</b></span><span>Horodatage <b>" + lot.anchor.date + "</b></span><span>Standard <b>GS1 Digital Link</b></span></div>";
+    document.getElementById("again").onclick = function () { load(lot.id); };
+    document.getElementById("ots").onclick = function () { VT.toast("Preuve " + lot.id + ".ots prête — vérifiable sur opentimestamps.org", "⛓"); };
+
+    document.getElementById("cta").innerHTML =
+      '<button class="btn btn-gold" id="buy">Racheter cette huile · ' + lot.price + ' TND</button><a class="btn btn-line" href="produit.html?lot=' + lot.id + '">Voir la fiche produit</a><a class="btn btn-line" href="boutique.html#huiles">Toutes les huiles</a>';
+    document.getElementById("buy").onclick = function () { VT.add(lot.id, 1); VT.toast(VT.esc(lot.name) + " ajoutée au panier", "✓"); };
+
+    verify(steps, run);
+  }
+
+  function verify(steps, me) {
+    var hero = document.getElementById("hero"), fg = document.getElementById("ringfg"), ic = document.getElementById("ringic");
+    var title = document.getElementById("st-title"), sub = document.getElementById("st-sub");
+    hero.classList.remove("st-ok", "st-bad"); ic.textContent = "⏳";
+    title.textContent = "Vérification…"; sub.textContent = "Recalcul de la chaîne d’empreintes dans votre navigateur";
+    fg.style.strokeDashoffset = 302;
+    var prev = "0".repeat(64), broken = -1, i = 0, n = steps.length;
+    (function next() {
+      if (me !== run) return;
+      if (i === n) return finish();
+      var h = VT.stepHash(prev, steps[i]), ok = h === lot.steps[i].hash, el = document.getElementById("s" + i), k = document.getElementById("k" + i);
+      el.classList.add("done", ok ? "ok" : "bad"); k.classList.add(ok ? "ok" : "bad");
+      el.querySelector(".st").textContent = ok ? "✓ Empreinte vérifiée" : "✕ Empreinte rompue";
+      if (!ok) {
+        if (broken < 0) broken = i;
+        document.getElementById("c" + i).innerHTML = "attendu&nbsp; " + lot.steps[i].hash + "<br>calculé&nbsp; " + h;
+      }
+      prev = h; i++;
+      fg.style.strokeDashoffset = 302 - (302 * i) / (n + 1);
+      document.getElementById("prog").style.height = "calc(" + (i / n) * 100 + "% - 20px)";
+      setTimeout(next, 380);
+    })();
+    function finish() {
+      var ok = broken < 0 && VT.sha256(prev + lot.id) === lot.seal;
+      fg.style.strokeDashoffset = 0;
+      hero.classList.add(ok ? "st-ok" : "st-bad");
+      ic.textContent = ok ? "✓" : "!";
+      title.textContent = ok ? "Bouteille authentique" : "Alerte : données altérées";
+      sub.innerHTML = ok
+        ? "Les " + n + " empreintes et le sceau du lot correspondent à la preuve ancrée sur Bitcoin."
+        : "L’étape « " + steps[broken].title + " » ne correspond plus à son empreinte : toute la suite de la chaîne est invalidée.";
+    }
+  }
+
+  load(VT.param("lot") || "OLV-2026-0001");
+})();
+</script>
+</body>
+</html>
