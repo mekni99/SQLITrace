@@ -142,24 +142,28 @@ BTN_ROUTES = {
             ("HACCP", "iso22000--haccp.html"),
             ("Internal audits", "iso22000--audit.html"),
             ("Corrective actions", "iso22000--capa.html"),
+                  ("New", "iso22000--procedure--form.html"),
         ],
         "iso22000--haccp.html": [
             ("Procedures", "iso22000--procedure.html"),
             ("HACCP", "iso22000--haccp.html"),
             ("Internal audits", "iso22000--audit.html"),
             ("Corrective actions", "iso22000--capa.html"),
+                  ("New", "iso22000--haccp--form.html"),
         ],
         "iso22000--audit.html": [
             ("Procedures", "iso22000--procedure.html"),
             ("HACCP", "iso22000--haccp.html"),
             ("Internal audits", "iso22000--audit.html"),
             ("Corrective actions", "iso22000--capa.html"),
+                  ("New", "iso22000--audit--form.html"),
         ],
         "iso22000--capa.html": [
             ("Procedures", "iso22000--procedure.html"),
             ("HACCP", "iso22000--haccp.html"),
             ("Internal audits", "iso22000--audit.html"),
             ("Corrective actions", "iso22000--capa.html"),
+                  ("New", "iso22000--capa--form.html"),
         ],
     },
     "aquatrace": {
