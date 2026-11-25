@@ -115,7 +115,7 @@ BTN_ROUTES = {
         "moulins.html": [("New mill", "moulins--form.html")],
         "pressages.html": [("New pressing", "pressages--form.html")],
         "laboratoires.html": [("New laboratory", "laboratoires--form.html")],
-        "analyses.html": [("New analysis", "analyses--form.html")],
+        "analyses.html": [("New analysis", "analyses--form.html"), ("Nouvelle analyse", "analyses--form.html")],
         "conditionneurs.html": [("New", "conditionneurs--form.html")],
         "operations.html": [("New operation", "operations--form.html")],
         "exportateurs.html": [("New exporter", "exportateurs--form.html")],
